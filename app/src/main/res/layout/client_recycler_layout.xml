@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginStart="@dimen/h3"
+    android:orientation="vertical"
+
+    android:layout_marginEnd="@dimen/h3">
+
+    <RelativeLayout
+        android:layout_marginTop="@dimen/h3"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/tvName"
+            android:textSize="@dimen/h2"
+            android:text="@string/n"
+            android:textColor="@android:color/black"
+            />
+            <TextView
+                android:layout_marginTop="@dimen/h3"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/tvAddCredit"
+                android:textSize="@dimen/h3"
+                android:text="Add Credit"
+                android:textColor="@color/lightblue"
+                android:layout_alignParentRight="true"
+                />
+
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/tvUseSession"
+            android:textSize="@dimen/h3"
+            android:layout_marginTop="@dimen/h3"
+            android:layout_below="@id/tvAddCredit"
+            android:text="@string/use_session"
+            android:textColor="@color/colorPrimary"
+            android:layout_alignParentRight="true"
+            />
+
+        <LinearLayout
+            android:layout_below="@id/tvName"
+            android:layout_width="wrap_content"
+            android:orientation="vertical"
+            android:layout_height="wrap_content">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/tvSessionsLeft"
+                android:textSize="@dimen/h3"
+                android:text="@string/sessions_left"
+                />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/tvSessionRate"
+                android:textSize="@dimen/h3"
+                android:text="@string/session_rate"
+                />
+        </LinearLayout>
+
+
+    </RelativeLayout>
+
+
+
+
+    <View
+        android:id="@+id/div"
+        android:layout_width="match_parent"
+        android:layout_marginStart="10dp"
+        android:layout_marginEnd="10dp"
+        android:layout_marginTop="8dp"
+        android:layout_height="1dp"
+        android:layout_centerHorizontal="true"
+        android:background="#1F000000"
+        ></View>
+
+
+
+</LinearLayout>

@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_marginStart="@dimen/h3"
+    android:orientation="vertical"
+    android:layout_marginEnd="@dimen/h3"
+    android:layout_marginBottom="@dimen/h3">
+
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="24sp"
+        android:textColor="@color/black"
+        android:layout_marginTop="@dimen/h3"
+        android:text="Welcome !"
+        android:id="@+id/welcomeTv"/>
+
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="24sp"
+        android:textColor="@color/black"
+        android:layout_below="@id/welcomeTv"
+        android:layout_marginTop="@dimen/h3"
+        android:text="Your Clients"
+        android:id="@+id/tv"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/emptyTv"
+        android:layout_centerInParent="true"
+        android:text="@string/you_haven_t_added_a_client_yet"
+        android:textSize="18sp"
+        android:visibility="invisible"/>
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:layout_width="match_parent"
+        android:layout_below="@id/tv"
+        android:layout_height="700dp"
+        android:id="@+id/recycler"
+        android:layout_above="@id/btn">
+
+    </androidx.recyclerview.widget.RecyclerView>
+
+
+    <Button
+        android:id="@+id/btn"
+        android:layout_width="300dp"
+        android:layout_height="50dp"
+        android:text="Add Client"
+        android:onClick="addClient"
+        android:textColor="@color/white"
+        android:backgroundTint="@color/primaryColor"
+        android:layout_gravity="center_horizontal"
+        android:layout_centerHorizontal="true"
+        android:layout_alignParentBottom="true"
+        />
+</RelativeLayout>

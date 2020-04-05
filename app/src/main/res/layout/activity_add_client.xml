@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_marginStart="@dimen/h3"
+    android:layout_marginEnd="@dimen/h3"
+    android:layout_marginTop="@dimen/h3"
+    tools:context=".AddClient">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+
+        android:text="Enter new client details!"
+        android:layout_marginBottom="@dimen/h3"
+        android:textSize="22sp"
+        android:id="@+id/tv"/>
+
+    <EditText
+        android:layout_below="@id/tv"
+        android:layout_width="300dp"
+        android:maxLines="1"
+        android:layout_height="wrap_content"
+        android:inputType="text"
+        android:id="@+id/name"
+        android:layout_centerHorizontal="true"
+        android:hint="@string/name"
+        />
+    <EditText
+        android:layout_width="300dp"
+        android:layout_height="wrap_content"
+        android:id="@+id/balance"
+        android:layout_centerHorizontal="true"
+        android:maxLines="1"
+        android:hint="@string/initial_balance"
+        android:inputType="number"
+        android:layout_below="@id/name"
+        />
+    <EditText
+        android:layout_width="300dp"
+        android:layout_height="wrap_content"
+        android:id="@+id/rate"
+        android:layout_centerHorizontal="true"
+        android:hint="@string/hourly_rate"
+        android:layout_below="@id/balance"
+        android:maxLines="1"
+        android:inputType="number"
+        />
+
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_alignParentBottom="true"
+        android:backgroundTint="@color/primaryColor"
+        android:text="@string/finish"
+        android:textColor="@android:color/white"
+        android:onClick="finishClick"
+         />
+
+
+</RelativeLayout>

@@ -1,0 +1,21 @@
+<resources>
+    <string name="app_name">BookLy</string>
+    <string name="title_activity_main">MainActivity</string>
+    <string name="a_c">Add Client</string>
+    <string name="title_activity_add_client">AddClient</string>
+    <string name="name">Name</string>
+    <string name="initial_balance">Initial Balance</string>
+    <string name="hourly_rate">Hourly Rate</string>
+    <string name="finish">Finish</string>
+    <string name="n">Name</string>
+    <string name="sessions_left">Sessions Left</string>
+    <string name="session_rate">Session Rate</string>
+    <string name="add_credit">Add Credit</string>
+    <string name="ok">Ok</string>
+    <string name="d">$</string>
+    <string name="use_session">Use Session</string>
+    <string name="you_haven_t_added_a_client_yet">You haven\'t added a client yet!</string>
+    <string name="title_activity_entrance">Entrance</string>
+    <string name="bookly">BOOKLY</string>
+    <string name="login_with_google">Login with google</string>
+</resources>
