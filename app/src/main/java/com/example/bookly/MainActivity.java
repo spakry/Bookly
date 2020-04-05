@@ -37,7 +37,8 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-public class MainActivity extends AppCompatActivity implements ClientRecyclerAdapter.onUseSessionListener{
+public class MainActivity extends AppCompatActivity implements ClientRecyclerAdapter.onUseSessionListener,
+    PopupFactory.UpdateBalanceListener{
 
     private static final int ADD_CLIENT_CODE = 1;
     private RecyclerView recyclerView;
@@ -129,6 +130,10 @@ public class MainActivity extends AppCompatActivity implements ClientRecyclerAda
 
     }
 
+    @Override
+    public void onBalanceUpdate(Client updatedClient) {
+        viewModel.update(updatedClient);
+    }
 
 
     private class GetEventsAsync extends AsyncTask<Void,Void, List<Event>>{
@@ -149,8 +154,13 @@ public class MainActivity extends AppCompatActivity implements ClientRecyclerAda
             Events events = null;
             try {
                 try {
+                    Date date = new Date();
+                    long nowMili = date.getTime();
+                    long fourWeek = 2419000000L;
+                    DateTime dateTime = new DateTime(nowMili-fourWeek);
                     events = calendar.events().list(CalendarConnector.CALENDAR_ID)
-                            .setTimeMin(now)
+                            .setTimeMax(now)
+                            .setTimeMin(dateTime)
                             .setOrderBy("startTime")
                             .setSingleEvents(true)
                             .execute();
@@ -184,7 +194,8 @@ public class MainActivity extends AppCompatActivity implements ClientRecyclerAda
         protected void onPostExecute(List<Event> events) {
 
             for (Event event : events){
-                Log.d("event",event.getSummary());
+                if(event.getSummary()!=null)
+                    Log.d("event",event.getSummary());
             }
 
             //calculate sessions used for client in current pay period
@@ -202,7 +213,7 @@ public class MainActivity extends AppCompatActivity implements ClientRecyclerAda
         for (Pair<Integer, Integer> pair : list){
             Integer id  = pair.first;
             Integer usedCount  = pair.second;
-
+            Toast.makeText(this, "Updated sessions from Google Calendar!", Toast.LENGTH_SHORT).show();
             viewModel.useSessionCount(id,usedCount);
         }
 
@@ -213,7 +224,6 @@ public class MainActivity extends AppCompatActivity implements ClientRecyclerAda
         List<Pair<Integer,Integer>> list = new ArrayList<Pair<Integer,Integer>>();
 
         List<Client> clients= viewModel.getAllClients().getValue();
-        List<Integer> sessionCountUsed = new ArrayList<Integer>();
 
 
         for(Client client :clients){
@@ -226,26 +236,38 @@ public class MainActivity extends AppCompatActivity implements ClientRecyclerAda
 
              try {
                  lastPaid=new SimpleDateFormat(DateContract.PAY_DATE_FORMAT).parse(client.getLastPaidDate());
+                 Log.d("lastPaid", String.valueOf(lastPaid));
 
             } catch (ParseException e) {
                 e.printStackTrace();
             }
             long lastPaidMillis = lastPaid.getTime();
+            Log.d("lastPaid", String.valueOf(lastPaidMillis));
 
              //compute num of events in the past after last pay date
             int count = 0;
             for (Event event : events){
-                String title = event.getSummary();
-                long eventDate = event.getStart().getDate().getValue();
+                String title = "";
+                if (event.getSummary()!=null) {
+                    title = event.getSummary();
+                }
+                DateTime start = event.getStart().getDateTime();
+                if (start == null) {
+                    start = event.getStart().getDate();
+                }
 
-                if (title.equals(name) && eventDate< nowMillis && eventDate>lastPaidMillis){
+                long eventDate = start.getValue();
+                Log.d("name", String.valueOf(title.equals(name)));
+                Log.d("time", String.valueOf(eventDate< nowMillis && eventDate>lastPaidMillis));
+                if(title.equalsIgnoreCase(name)==true ){
+                    Log.d("StartTime", String.valueOf(eventDate));
+                }
+                if (title.equalsIgnoreCase(name) && eventDate< nowMillis && eventDate>lastPaidMillis){
                     //count as used session
                     count++;
                 }
             }
             Log.d("count", String.valueOf(count));
-            sessionCountUsed.add(count);
-
 
             list.add(new Pair<Integer,Integer>(id,count));
         }

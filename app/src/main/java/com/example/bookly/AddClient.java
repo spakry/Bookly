@@ -44,20 +44,23 @@ public class AddClient extends AppCompatActivity {
             Client client = new Client(name, rate, balance);
 
             //set payment details
-            client.setLastPaid(balance);
-            client.setLastPaidDate(getTodayDate());
+            client.setBalanceAfterLastPaid(balance);
+            client.setLastPaidDate(DateContract.getTodayDate());
+
 
             Intent data = new Intent();
             data.putExtra(ADD_CLIENT, client);
             setResult(RESULT_OK, data);
             finish();
+
+            Toast.makeText(this, "Your client has been added!", Toast.LENGTH_SHORT).show();
         }
-        Toast.makeText(this, "Please check your client information!", Toast.LENGTH_SHORT).show();
+        else
+            Toast.makeText(this, "Please check your client information!", Toast.LENGTH_SHORT).show();
+
+
+
     }
 
-    private String getTodayDate() {
-        DateFormat dateFormat = new SimpleDateFormat(DateContract.PAY_DATE_FORMAT);
-        Date date = new Date();
-        return dateFormat.format(date);
-    }
+
 }

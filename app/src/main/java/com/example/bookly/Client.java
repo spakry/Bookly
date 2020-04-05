@@ -12,7 +12,7 @@ class Client implements Serializable {
     private String name;
     private long balance;
     private long rate;
-    private long lastPaid;
+    private long balanceAfterLastPaid;
     private String lastPaidDate;
     @Ignore
     private int sessionsLeft;
@@ -68,13 +68,7 @@ class Client implements Serializable {
         this.id = id;
     }
 
-    public long getLastPaid() {
-        return lastPaid;
-    }
 
-    public void setLastPaid(long lastPaid) {
-        this.lastPaid = lastPaid;
-    }
 
     public String getLastPaidDate() {
         return lastPaidDate;
@@ -82,5 +76,13 @@ class Client implements Serializable {
 
     public void setLastPaidDate(String lastPaidDate) {
         this.lastPaidDate = lastPaidDate;
+    }
+
+    public long getBalanceAfterLastPaid() {
+        return balanceAfterLastPaid;
+    }
+
+    public void setBalanceAfterLastPaid(long balanceAfterLastPaid) {
+        this.balanceAfterLastPaid = balanceAfterLastPaid;
     }
 }

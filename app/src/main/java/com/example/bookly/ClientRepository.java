@@ -53,8 +53,12 @@ public class ClientRepository {
         protected Void doInBackground(String... ids) {
 
             Client client = clientDao.getClient(ids[0]);
-            int sessions = client.getSessionsLeft()-1;
-            client.setSessionsLeft(sessions);
+
+            //decrement balance by one session
+            long bal = client.getBalance();
+            bal = bal-client.getRate();
+            client.setBalance(bal);
+
             clientDao.update(client);
             return null;
         }
@@ -79,9 +83,13 @@ public class ClientRepository {
         protected Void doInBackground(String... ids) {
 
             Client client = clientDao.getClient(ids[0]);
-            int sessions = client.getSessionsLeft()-useCount;
-            client.setSessionsLeft(sessions);
+
+            //decrement balance by one session
+            long bal = client.getBalance();
+            bal = bal-client.getRate()*useCount;
+            client.setBalance(bal);
             clientDao.update(client);
+
             return null;
         }
     }

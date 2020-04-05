@@ -1,5 +1,6 @@
 package com.example.bookly;
 
+import android.app.Activity;
 import android.content.Context;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -24,14 +25,14 @@ class ClientRecyclerAdapter extends RecyclerView.Adapter<ClientRecyclerAdapter.V
         show recyclerview of current clients.
      */
 
-    private final Context context;
+    private final Activity activity;
     private List<Client> clientList;
     private onUseSessionListener onUseSessionListener;
 
 
 
-    public ClientRecyclerAdapter(Context context) {
-        this.context = context;
+    public ClientRecyclerAdapter(Activity activity) {
+        this.activity = activity;
         this.clientList = new ArrayList<>();
     }
 
@@ -68,7 +69,7 @@ class ClientRecyclerAdapter extends RecyclerView.Adapter<ClientRecyclerAdapter.V
             @Override
             public void onClick(View view) {
                 onUseSessionListener.usedSession(client);
-                    Toast.makeText(context, "Used one session", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(activity, "Used one session", Toast.LENGTH_SHORT).show();
             }
         });
 
@@ -76,9 +77,10 @@ class ClientRecyclerAdapter extends RecyclerView.Adapter<ClientRecyclerAdapter.V
             @Override
             public void onClick(View view) {
                 //open add credit dialogue
-                PopupFactory popupFactory = new PopupFactory(context);
-                PopupWindow popup = popupFactory.setClientId(String.valueOf(clientId)).setView(view).build();
-                popup.showAtLocation(view, Gravity.CENTER, 0, 0);
+                PopupFactory popupFactory = new PopupFactory(activity);
+                PopupWindow popup = popupFactory.setClient(client).setView(view)
+                        .setUpdateBalanceListener((PopupFactory.UpdateBalanceListener) activity).build();
+                popup.showAtLocation(view, Gravity.CENTER, 0, 300);
             }
         });
     }

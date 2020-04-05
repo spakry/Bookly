@@ -11,21 +11,26 @@ import android.widget.PopupWindow;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.constraintlayout.widget.ConstraintLayout;
+import androidx.lifecycle.AndroidViewModel;
+
 public class PopupFactory {
 
     private final Context context;
     private String title, content;
     private View view;
-    private String clientId;
+    private Client client;
+    private UpdateBalanceListener updateBalanceListener;
 
     public PopupFactory(Context context) {
         this.context=context;
     }
 
-    public PopupFactory setClientId(String clientId){
-        this.clientId = clientId;
+    public PopupFactory setClient(Client client){
+        this.client = client;
         return this;
     }
+
     public PopupFactory setView(View view){
         this.view=view;
         return this;
@@ -36,6 +41,10 @@ public class PopupFactory {
     }
     public PopupFactory setMessage(String message){
         this.content=message;
+        return this;
+    }
+    public PopupFactory setUpdateBalanceListener(UpdateBalanceListener updateBalanceListener) {
+        this.updateBalanceListener = updateBalanceListener;
         return this;
     }
 
@@ -58,15 +67,24 @@ public class PopupFactory {
         okBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                //add balance
-                float addBalance = Float.parseFloat(addCreditEt.getText().toString());
 
-                LocalSqlLiteHelper localSqlLiteHelper = LocalSqlLiteHelper.getInstance(context);
-                int success =localSqlLiteHelper.addBalance(clientId,addBalance);
-                if(success==1) {
-                    popupWindow.dismiss();
-                }
-                Toast.makeText(context, "There was an error updating balance", Toast.LENGTH_SHORT).show();
+                //update balance of client
+                //get snapshot of updated balance at time of update
+                //record date of update
+
+                //update the client model.
+                long addBalance = Long.parseLong(addCreditEt.getText().toString());
+                long pastBalance = client.getBalance();
+                long newBalance = pastBalance+addBalance;
+                client.setBalance(newBalance);
+                client.setLastPaidDate(DateContract.getTodayDate());
+                client.setBalanceAfterLastPaid(newBalance);
+
+                //update client in room.
+                updateBalanceListener.onBalanceUpdate(client);
+
+                Toast.makeText(context, "The client balance has been updated!", Toast.LENGTH_SHORT).show();
+                popupWindow.dismiss();
             }
         });
 
@@ -79,6 +97,11 @@ public class PopupFactory {
         });
 
         return popupWindow;
+    }
+
+
+    public  interface UpdateBalanceListener{
+        void onBalanceUpdate(Client updatedClient);
     }
 
 
