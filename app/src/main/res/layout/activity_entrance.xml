@@ -4,36 +4,53 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".Entrance"
-    android:background="#F05E23">
+    tools:context=".Entrance">
 
+
+    <TextView
+        android:id="@+id/mainTv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="164dp"
+        android:fontFamily="@font/cereal_medium"
+        android:text="@string/bookly"
+        android:textColor="@color/orange"
+        android:textSize="55sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintHorizontal_bias="0.497"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.08" />
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="164dp"
-        android:text="@string/bookly"
-        android:id="@+id/mainTv"
-        android:textSize="30sp"
-        android:textColor="@color/white"
-        app:layout_constraintHorizontal_bias="0.498"
+        android:layout_marginTop="20dp"
+        android:fontFamily="@font/cereal"
+        android:id="@+id/descTv"
+        android:gravity="center"
+        android:text="Keep track of all your clients,\nso you can focus on what you do best."
+        android:textSize="@dimen/h3"
+        app:layout_constraintHorizontal_bias="0.494"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toBottomOf="@id/mainTv" />
 
 
     <Button
-        android:layout_width="300dp"
-        android:layout_height="50dp"
-        android:layout_marginTop="224dp"
-        android:text="@string/login_with_google"
+        android:id="@+id/googleBtn"
+        android:layout_width="@dimen/btnWidth"
+        android:layout_height="@dimen/btnHeight"
+        android:layout_marginTop="296dp"
+        android:backgroundTint="@color/orange"
         android:drawableLeft="@drawable/ic_google_hangouts"
         android:drawablePadding="20dp"
-        android:backgroundTint="@color/orange"
-        android:textColor="@color/white"
-        app:layout_constraintHorizontal_bias="0.495"
-        app:layout_constraintLeft_toLeftOf="parent"
+        android:elevation="5dp"
         android:onClick="loginGoogle"
+        android:text="@string/login_with_google"
+        android:textColor="@color/white"
+        app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/mainTv" />
+        app:layout_constraintTop_toBottomOf="@id/descTv" />
 </androidx.constraintlayout.widget.ConstraintLayout>

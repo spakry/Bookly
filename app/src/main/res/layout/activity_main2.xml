@@ -12,6 +12,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textSize="24sp"
+        android:fontFamily="@font/cereal_medium"
         android:textColor="@color/black"
         android:layout_marginTop="@dimen/h3"
         android:text="Welcome !"
@@ -22,11 +23,23 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textSize="24sp"
-        android:textColor="@color/black"
         android:layout_below="@id/welcomeTv"
+        android:fontFamily="@font/cereal_medium"
         android:layout_marginTop="@dimen/h3"
-        android:text="Your Clients"
+        android:text="Your Clients ..."
         android:id="@+id/tv"/>
+
+    <View
+        android:id="@+id/div"
+        android:layout_width="match_parent"
+        android:layout_marginTop="8dp"
+        android:layout_marginBottom="8dp"
+        android:layout_below="@id/tv"
+        android:layout_height="1dp"
+        android:layout_centerHorizontal="true"
+        android:background="#1F000000"
+        ></View>
+
 
     <TextView
         android:layout_width="wrap_content"
@@ -39,7 +52,7 @@
 
     <androidx.recyclerview.widget.RecyclerView
         android:layout_width="match_parent"
-        android:layout_below="@id/tv"
+        android:layout_below="@id/div"
         android:layout_height="700dp"
         android:id="@+id/recycler"
         android:layout_above="@id/btn">
@@ -49,13 +62,16 @@
 
     <Button
         android:id="@+id/btn"
-        android:layout_width="300dp"
-        android:layout_height="50dp"
+        android:layout_width="@dimen/btnWidth"
+        android:layout_height="@dimen/btnHeight"
         android:text="Add Client"
         android:onClick="addClient"
         android:textColor="@color/white"
-        android:backgroundTint="@color/primaryColor"
+        android:backgroundTint="@color/orange"
         android:layout_gravity="center_horizontal"
+        android:fontFamily="@font/cereal_medium"
+        android:textAllCaps="false"
+        android:textSize="@dimen/h3"
         android:layout_centerHorizontal="true"
         android:layout_alignParentBottom="true"
         />

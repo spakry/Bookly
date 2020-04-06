@@ -12,8 +12,8 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-
-        android:text="Enter new client details!"
+        android:fontFamily="@font/cereal_medium"
+        android:text="Enter new client details !"
         android:layout_marginBottom="@dimen/h3"
         android:textSize="22sp"
         android:id="@+id/tv"/>
@@ -25,6 +25,7 @@
         android:layout_height="wrap_content"
         android:inputType="text"
         android:id="@+id/name"
+        android:fontFamily="@font/cereal_medium"
         android:layout_centerHorizontal="true"
         android:hint="@string/name"
         />
@@ -35,6 +36,8 @@
         android:layout_centerHorizontal="true"
         android:maxLines="1"
         android:hint="@string/initial_balance"
+        android:fontFamily="@font/cereal_medium"
+
         android:inputType="number"
         android:layout_below="@id/name"
         />
@@ -45,19 +48,24 @@
         android:layout_centerHorizontal="true"
         android:hint="@string/hourly_rate"
         android:layout_below="@id/balance"
+        android:fontFamily="@font/cereal_medium"
         android:maxLines="1"
         android:inputType="number"
         />
 
     <Button
-        android:layout_width="match_parent"
-        android:layout_height="50dp"
+        android:layout_width="@dimen/btnWidth"
+        android:layout_height="@dimen/btnHeight"
         android:layout_alignParentBottom="true"
-        android:backgroundTint="@color/primaryColor"
-        android:text="@string/finish"
-        android:textColor="@android:color/white"
+        android:layout_marginBottom="13dp"
+        android:backgroundTint="@color/orange"
+        android:fontFamily="@font/cereal_medium"
         android:onClick="finishClick"
-         />
+        android:text="@string/finish"
+        android:textAllCaps="false"
+        android:textColor="@android:color/white"
+        android:elevation="5dp"
+        android:textSize="@dimen/h3" />
 
 
 </RelativeLayout>

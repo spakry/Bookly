@@ -2,10 +2,7 @@
 <LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_marginStart="@dimen/h3"
-    android:orientation="vertical"
-
-    android:layout_marginEnd="@dimen/h3">
+    android:orientation="vertical">
 
     <RelativeLayout
         android:layout_marginTop="@dimen/h3"
@@ -16,6 +13,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:id="@+id/tvName"
+            android:fontFamily="@font/cereal"
             android:textSize="@dimen/h2"
             android:text="@string/n"
             android:textColor="@android:color/black"
@@ -26,6 +24,7 @@
                 android:layout_height="wrap_content"
                 android:id="@+id/tvAddCredit"
                 android:textSize="@dimen/h3"
+                android:fontFamily="@font/cereal"
                 android:text="Add Credit"
                 android:textColor="@color/lightblue"
                 android:layout_alignParentRight="true"
@@ -37,8 +36,9 @@
             android:layout_height="wrap_content"
             android:id="@+id/tvUseSession"
             android:textSize="@dimen/h3"
-            android:layout_marginTop="@dimen/h3"
+            android:layout_marginTop="5dp"
             android:layout_below="@id/tvAddCredit"
+            android:fontFamily="@font/cereal"
             android:text="@string/use_session"
             android:textColor="@color/colorPrimary"
             android:layout_alignParentRight="true"
@@ -53,11 +53,13 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:id="@+id/tvSessionsLeft"
+                android:fontFamily="@font/cereal"
                 android:textSize="@dimen/h3"
                 android:text="@string/sessions_left"
                 />
             <TextView
                 android:layout_width="wrap_content"
+                android:fontFamily="@font/cereal"
                 android:layout_height="wrap_content"
                 android:id="@+id/tvSessionRate"
                 android:textSize="@dimen/h3"
@@ -74,8 +76,6 @@
     <View
         android:id="@+id/div"
         android:layout_width="match_parent"
-        android:layout_marginStart="10dp"
-        android:layout_marginEnd="10dp"
         android:layout_marginTop="8dp"
         android:layout_height="1dp"
         android:layout_centerHorizontal="true"

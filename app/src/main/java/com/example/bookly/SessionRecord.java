@@ -1,6 +1,8 @@
 package com.example.bookly;
 
+import androidx.annotation.NonNull;
 import androidx.room.Entity;
+import androidx.room.PrimaryKey;
 
 import com.google.api.client.util.DateTime;
 
@@ -11,11 +13,14 @@ public class SessionRecord {
         Room entity.
      */
 
+    @PrimaryKey
+    @NonNull
     private String dateTime;
     private int clientId;
     private boolean updateBalance;
 
-    public SessionRecord(String dateTime, int clientId) {
+
+    public SessionRecord(@NonNull String dateTime, int clientId) {
         this.dateTime = dateTime;
         this.clientId = clientId;
     }
