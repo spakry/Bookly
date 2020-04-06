@@ -45,6 +45,7 @@ public class MainActivity extends AppCompatActivity implements ClientRecyclerAda
     private TextView textView;
 
     private MainActivityViewModel viewModel;
+    private SessionRepository sessionRepository;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -86,6 +87,25 @@ public class MainActivity extends AppCompatActivity implements ClientRecyclerAda
 
         });
 
+        //observe the list of sessions
+        sessionRepository = new SessionRepository(getApplication());
+        sessionRepository.getAllSessionRecords().observe(this, new Observer<List<SessionRecord>>() {
+            @Override
+            public void onChanged(List<SessionRecord> sessionRecords) {
+
+                //check for field updated balance and if false decrement client balance
+                for (SessionRecord session: sessionRecords){
+                    if(session.isUpdateBalance()==false) {
+                        int clientId = session.getClientId();
+                        Client client = fetchClient(clientId);
+                        session.setUpdateBalance(true);
+                        viewModel.useSession(client);
+                    }
+                }
+
+            }
+        });
+
         try {
             CalendarConnector calendarConnector = new CalendarConnector(getApplicationContext());
             Calendar calendar = calendarConnector.getCalendar(gs.getEmail());
@@ -96,6 +116,16 @@ public class MainActivity extends AppCompatActivity implements ClientRecyclerAda
         }
 
 
+    }
+
+    private Client fetchClient(int clientId) {
+        //fetch the client using the id using an snapshot of the live list.
+        List<Client> clientList= viewModel.getAllClients().getValue();
+        for(Client client: clientList)
+            if(client.getId()==clientId)
+                return client;
+
+            return null;
     }
 
     @Override
@@ -199,32 +229,34 @@ public class MainActivity extends AppCompatActivity implements ClientRecyclerAda
             }
 
             //calculate sessions used for client in current pay period
-            adjustSessions(computeSession(events));
+            List<SessionRecord> sessionList =  computeSession(events);
+            updateDB(sessionList);
 
         }
 
 
     }
 
-    private void adjustSessions(List<Pair<Integer, Integer>> list) {
-        /*
-            Decrement sessions for each client in the roster.
-         */
-        for (Pair<Integer, Integer> pair : list){
-            Integer id  = pair.first;
-            Integer usedCount  = pair.second;
-            Toast.makeText(this, "Updated sessions from Google Calendar!", Toast.LENGTH_SHORT).show();
-            viewModel.useSessionCount(id,usedCount);
-        }
+    private void updateDB(List<SessionRecord> sessionList) {
+        List<SessionRecord> sessionRecordsLocal = sessionRepository.getAllSessionRecords().getValue();
+        for(SessionRecord session:sessionList){
+            String dateTime = session.getDateTime();
+            int id = session.getClientId();
 
+            for (SessionRecord sLocal:sessionRecordsLocal){
+                if (sLocal.getDateTime().equalsIgnoreCase(dateTime) && sLocal.getClientId()==id)
+                    return;
+            }
+
+            //if not found add this session to local record.
+            sessionRepository.insertSessionRecord(session);
+        }
 
     }
 
-    private List<Pair<Integer,Integer>> computeSession(List<Event> events) {
-        List<Pair<Integer,Integer>> list = new ArrayList<Pair<Integer,Integer>>();
-
+    private List<SessionRecord> computeSession(List<Event> events) {
+        List<SessionRecord> list = new ArrayList<SessionRecord>();
         List<Client> clients= viewModel.getAllClients().getValue();
-
 
         for(Client client :clients){
             String name = client.getName();
@@ -264,12 +296,14 @@ public class MainActivity extends AppCompatActivity implements ClientRecyclerAda
                 }
                 if (title.equalsIgnoreCase(name) && eventDate< nowMillis && eventDate>lastPaidMillis){
                     //count as used session
+                    Log.d("startTimeString",start.toString());
+                    list.add(new SessionRecord(start.toString(),client.getId()));
                     count++;
                 }
             }
-            Log.d("count", String.valueOf(count));
+            Log.d(client.getName()+"count", String.valueOf(count));
+            return list;
 
-            list.add(new Pair<Integer,Integer>(id,count));
         }
 
         return list;

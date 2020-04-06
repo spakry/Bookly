@@ -74,17 +74,22 @@ public class PopupFactory {
 
                 //update the client model.
                 long addBalance = Long.parseLong(addCreditEt.getText().toString());
-                long pastBalance = client.getBalance();
-                long newBalance = pastBalance+addBalance;
-                client.setBalance(newBalance);
-                client.setLastPaidDate(DateContract.getTodayDate());
-                client.setBalanceAfterLastPaid(newBalance);
 
-                //update client in room.
-                updateBalanceListener.onBalanceUpdate(client);
+                if (addBalance>client.getRate()) {
+                    long pastBalance = client.getBalance();
+                    long newBalance = pastBalance + addBalance;
+                    client.setBalance(newBalance);
+                    client.setLastPaidDate(DateContract.getTodayDate());
+                    client.setBalanceAfterLastPaid(newBalance);
 
-                Toast.makeText(context, "The client balance has been updated!", Toast.LENGTH_SHORT).show();
-                popupWindow.dismiss();
+                    //update client in room.
+                    updateBalanceListener.onBalanceUpdate(client);
+
+                    Toast.makeText(context, "The client balance has been updated!", Toast.LENGTH_SHORT).show();
+                    popupWindow.dismiss();
+                }
+                else
+                    Toast.makeText(context, "The amount must be greater than the session rate!", Toast.LENGTH_SHORT).show();
             }
         });
 
