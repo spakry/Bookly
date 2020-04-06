@@ -7,7 +7,7 @@ import androidx.room.Database;
 import androidx.room.Room;
 import androidx.room.RoomDatabase;
 
-@Database(entities = SessionRecord.class, version = 1, exportSchema = false)
+@Database(entities = SessionRecord.class, version = 3 , exportSchema = false)
 public abstract class SessionDatabase  extends RoomDatabase {
 
     private static SessionDatabase mInstance = null;
@@ -16,7 +16,7 @@ public abstract class SessionDatabase  extends RoomDatabase {
     public static synchronized SessionDatabase getInstance(Context context){
         if(mInstance==null){
             mInstance = Room.databaseBuilder(context.getApplicationContext(),
-                    SessionDatabase.class, "client_database")
+                    SessionDatabase.class, "session_database")
                     .fallbackToDestructiveMigration()
                     .build();
         }

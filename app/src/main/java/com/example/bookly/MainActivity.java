@@ -56,7 +56,8 @@ public class MainActivity extends AppCompatActivity implements ClientRecyclerAda
         GoogleSignInAccount gs =getIntent().getParcelableExtra(Entrance.USER_DATA);
         if(gs!=null) {
             TextView tv = findViewById(R.id.welcomeTv);
-            tv.setText("Hello " + gs.getGivenName() + " !");
+            String name = gs.getGivenName().substring(0,1).toUpperCase()+ gs.getGivenName().substring(1);
+            tv.setText("Hello " + name + " !");
         }
 
 

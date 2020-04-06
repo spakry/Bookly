@@ -4,4 +4,5 @@
     <dimen name="h2">22sp</dimen>
     <dimen name="btnWidth">375dp</dimen>
     <dimen name="btnHeight">60dp</dimen>
+    <dimen name="h1">24sp</dimen>
 </resources>

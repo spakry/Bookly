@@ -22,7 +22,7 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textSize="24sp"
+        android:textSize="@dimen/h1"
         android:layout_below="@id/welcomeTv"
         android:fontFamily="@font/cereal_medium"
         android:layout_marginTop="@dimen/h3"
