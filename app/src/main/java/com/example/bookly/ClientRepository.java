@@ -8,6 +8,11 @@ import java.util.List;
 
 public class ClientRepository {
 
+    /*
+        Repository envelope for accessing the client resource.
+
+     */
+
 
     private Client_Dao dao;
     private LiveData<List<Client>> allClients;

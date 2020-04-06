@@ -9,6 +9,12 @@ import java.io.Serializable;
 @Entity(tableName = "client_table")
 class Client implements Serializable {
 
+    /*
+        Model for the client.
+
+        Defined as room entity for the client table
+     */
+
     private String name;
     private long balance;
     private long rate;

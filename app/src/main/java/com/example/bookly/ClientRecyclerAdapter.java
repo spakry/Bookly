@@ -22,7 +22,9 @@ import java.util.ListIterator;
 class ClientRecyclerAdapter extends RecyclerView.Adapter<ClientRecyclerAdapter.ViewHolder> {
 
     /*
-        show recyclerview of current clients.
+        Adapter for recyclerview of current clients.
+
+
      */
 
     private final Activity activity;

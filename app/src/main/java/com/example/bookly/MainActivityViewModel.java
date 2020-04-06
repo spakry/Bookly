@@ -8,6 +8,10 @@ import androidx.annotation.NonNull;
 import java.util.List;
 
 public class MainActivityViewModel extends AndroidViewModel {
+    /*
+        Viewmodel for MVVM architecture.
+        serves MainActivity.
+     */
 
     private ClientRepository clientRepository;
     private LiveData<List<Client>> clientLiveList;

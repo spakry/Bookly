@@ -49,6 +49,9 @@ public class Entrance extends AppCompatActivity {
     }
 
     public void loginGoogle(View view) {
+        //user clicks login with google.
+
+        //authenticate user with google signin flow.
         GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
                 .requestEmail()
                 .build();

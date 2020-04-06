@@ -72,16 +72,19 @@ public class MainActivity extends AppCompatActivity implements ClientRecyclerAda
         adapter.setOnUseSessionListener(this);
 
 
+        //Initiate the view model of this
         viewModel = ViewModelProviders.of(this).get(MainActivityViewModel.class);
         viewModel.getAllClients().observe(this, new Observer<List<Client>>() {
             @Override
             public void onChanged(@Nullable List<Client> clients) {
+
                 //Let Activity be the observer of live client list and act accordingly
 
                 if (clients.size()>0){
                     TextView textView = findViewById(R.id.emptyTv);
                     textView.setVisibility(View.INVISIBLE);}
 
+                //relay changed client info to adapter.
                 adapter.setClientList(clients);
             }
 
@@ -93,7 +96,8 @@ public class MainActivity extends AppCompatActivity implements ClientRecyclerAda
             @Override
             public void onChanged(List<SessionRecord> sessionRecords) {
 
-                //check for field updated balance and if false decrement client balance
+
+                //Check if client balance has been adjusted for the session,
                 for (SessionRecord session: sessionRecords){
                     if(session.isUpdateBalance()==false) {
                         int clientId = session.getClientId();
@@ -107,6 +111,7 @@ public class MainActivity extends AppCompatActivity implements ClientRecyclerAda
         });
 
         try {
+
             CalendarConnector calendarConnector = new CalendarConnector(getApplicationContext());
             Calendar calendar = calendarConnector.getCalendar(gs.getEmail());
             new GetEventsAsync(calendar,this).execute();
@@ -130,8 +135,17 @@ public class MainActivity extends AppCompatActivity implements ClientRecyclerAda
 
     @Override
     public void usedSession(Client client) {
+        //callback method from the adapter
         viewModel.useSession(client);
     }
+
+
+    @Override
+    public void onBalanceUpdate(Client updatedClient) {
+        //callback method from the adapter
+        viewModel.update(updatedClient);
+    }
+
 
 
     public void addClient(View view) {
@@ -143,6 +157,7 @@ public class MainActivity extends AppCompatActivity implements ClientRecyclerAda
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         if(requestCode == ADD_CLIENT_CODE) {
             if (resultCode == RESULT_OK) {
+                //add the client to storage
                 Client client = (Client) data.getSerializableExtra(AddClient.ADD_CLIENT);
                 viewModel.insert(client);
             } else {
@@ -156,15 +171,7 @@ public class MainActivity extends AppCompatActivity implements ClientRecyclerAda
 
             }
         }
-
-
     }
-
-    @Override
-    public void onBalanceUpdate(Client updatedClient) {
-        viewModel.update(updatedClient);
-    }
-
 
     private class GetEventsAsync extends AsyncTask<Void,Void, List<Event>>{
 
@@ -238,6 +245,9 @@ public class MainActivity extends AppCompatActivity implements ClientRecyclerAda
     }
 
     private void updateDB(List<SessionRecord> sessionList) {
+        //sort the list of sessions counted as used.
+        //event summary must == client name.
+        // Now > session time  >last pay date
         List<SessionRecord> sessionRecordsLocal = sessionRepository.getAllSessionRecords().getValue();
         for(SessionRecord session:sessionList){
             String dateTime = session.getDateTime();

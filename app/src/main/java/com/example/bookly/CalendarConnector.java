@@ -35,6 +35,14 @@ import java.util.List;
 
 
 public class CalendarConnector {
+
+    /*
+        Returns the google api calendar object
+
+        Initialize the user credentials.
+
+    */
+
     public static final String CALENDAR_ID = "primary";
     private  final String APPLICATION_NAME = "Bookly";
     private  final JsonFactory JSON_FACTORY = JacksonFactory.getDefaultInstance();

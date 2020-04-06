@@ -6,6 +6,11 @@ import androidx.room.Database;
 import androidx.room.Room;
 import androidx.room.RoomDatabase;
 
+/*
+    abstract singleton class which builds the client database.
+
+ */
+
 @Database(entities = Client.class, version = 4, exportSchema = false)
 public abstract class ClientDatabase extends RoomDatabase {
 

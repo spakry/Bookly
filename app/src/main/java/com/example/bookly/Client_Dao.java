@@ -13,6 +13,10 @@ import java.util.List;
 @Dao
 public interface Client_Dao {
 
+    /*
+        DAO for the client table.
+     */
+
     @Insert
     void insert(Client client);
 

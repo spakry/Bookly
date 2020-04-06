@@ -6,6 +6,10 @@ import com.google.api.client.util.DateTime;
 
 @Entity(tableName = "session_table")
 public class SessionRecord {
+    /*
+        Model for session
+        Room entity.
+     */
 
     private String dateTime;
     private int clientId;

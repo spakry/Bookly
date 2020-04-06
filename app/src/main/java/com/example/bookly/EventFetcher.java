@@ -13,6 +13,10 @@ import java.util.List;
 
 public class EventFetcher {
 
+    /*
+        Returns events from the calendar using calendar injection
+     */
+
     private Calendar calendar;
     public EventFetcher(Calendar calendar) {
         this.calendar = calendar;

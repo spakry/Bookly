@@ -9,6 +9,12 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
 class AccountSharedPrefHelper {
+
+    /*
+        Store user information in shared preferences
+        Track the login state of the user for auto login.
+     */
+
     private final Activity a;
     public final String ACCOUNT_KEY = "ACCOUNT";
     private Gson gson = new GsonBuilder().create();

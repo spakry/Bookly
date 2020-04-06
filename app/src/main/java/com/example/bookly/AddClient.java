@@ -15,6 +15,14 @@ import java.util.Date;
 
 public class AddClient extends AppCompatActivity {
 
+    /*
+        Activity called from the Main activity to add clients to the roster.
+
+        Client must be init with initial balance and hourly rate.
+
+        Client is added to SQL lite client table.
+     */
+
     public static final String ADD_CLIENT = "add_client";
     private EditText nameEt;
     private EditText balanceEt;

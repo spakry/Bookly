@@ -9,6 +9,10 @@ import java.util.List;
 
 public class SessionRepository {
 
+    /*
+        Envelope to access backend transactions.
+     */
+
     private SessionDao dao;
     private LiveData<List<SessionRecord>> allSessions;
 
